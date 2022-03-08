@@ -1,0 +1,55 @@
+[alias]
+    # basics
+    s = status
+    co = checkout
+    aa = add --all
+    d = diff
+    dc = diff --cached
+    cm = commit -m
+    fix = commit --amend
+    fixup = commit --amend --no-edit
+
+    r = !git report
+    rr = !git reportremote
+    report = !ls -d -1 */ | xargs -I '{}' bash -c 'echo && echo {} && cd {} && git branch && git status --porcelain'
+    reportremote = !ls -d -1 */ | xargs -I '{}' bash -c 'echo && echo {} && cd {} && git bre'
+
+    # update/purge
+    up = !git pull --rebase && git remote prune origin
+    purge = !GIT_TRACE=1 git reflog expire --expire=2.day --all && git prune && git remote prune origin && git lfs prune && git gc
+    wipe = !git reset --hard && git clean -fd
+
+    # log
+    l = log --pretty=format:'%C(blue)%h%C(reset)  %C(magenta)%an%C(reset)  %C(cyan)%ar%C(reset)  %s'
+    ld = log --date=local --pretty=format:'%C(blue)%h%C(reset)  %C(magenta)%an%C(reset)  %C(cyan)%ar%C(reset)  %s'
+    lme = !git l --author=\"$(git config user.name)\"
+    ldme = !git ld --author=\"$(git config user.name)\"
+
+    # branches
+    b = branch
+    bm = "!f() { git branch -m ${1}; }; f"
+    bl = for-each-ref --sort=-committerdate refs/heads --format="%(committerdate:relative)%09%(refname)"
+    br = for-each-ref --sort=-committerdate refs/remotes --format="%(committerdate:relative)%09%(refname)"
+    bd = branch -d
+    bdf = branch -D
+    brd = "!f() { git push origin :${1}; }; f"
+    bre = !git br | grep -e "ere/"
+    bn = branch-name
+    branch-name = "!git rev-parse --abbrev-ref HEAD"
+    publish = "!git push -u origin $(git branch-name)"
+
+    # rewrites
+    cp = cherry-pick
+    cpa = cherry-pick --abort
+    cpc = cherry-pick --continue
+    rba = rebase --abort
+    rbc = rebase --continue
+    rbd = rebase --ignore-date
+    rbi = rebase -i
+    repush = "!git push --force-with-lease origin $(git rev-parse --abbrev-ref @)"
+    relation = "!f() { \
+            (git merge-base --is-ancestor $1 $2 && echo $1 ancestor of $2) \
+                || (git merge-base --is-ancestor "$2" "$1" && echo "$1 descendant of $2") \
+                || echo 'unrelated'; \
+        }; f"
+

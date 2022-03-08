@@ -1,0 +1,11 @@
+[user]
+    name = Erika Ellison
+    email = "erikaellr@github.com"
+[fetch]
+    prune = true
+[pull]
+    rebase = true
+[core]
+    editor = "vim"
+[include]
+    path = ./aliases

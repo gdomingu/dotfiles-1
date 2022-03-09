@@ -8,4 +8,4 @@ cd $DOTFILESDIRREL/..
 DOTFILESDIR="$(pwd -P)"
 
 ln -sf "$DOTFILESDIR" "$HOME/.dotfiles"
-cat "$DOTFILESDIR/.zprofile " >> "$HOME/.zprofile "
+cat "$DOTFILESDIR/shell/.zprofile " >> "$HOME/.zprofile "
